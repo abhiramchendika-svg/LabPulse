@@ -1,0 +1,9 @@
+{
+  "title": "Python Warm-up",
+  "description": "Three short exercises: averages, string building and FizzBuzz. Exercise 2 starts with a planted bug.",
+  "exercises": [
+    { "id": "class-average", "title": "Class average", "dir": "01-class-average" },
+    { "id": "receipt-line", "title": "Receipt line", "dir": "02-receipt-line" },
+    { "id": "fizzbuzz", "title": "FizzBuzz", "dir": "03-fizzbuzz" }
+  ]
+}

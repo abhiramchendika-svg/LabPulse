@@ -1,0 +1,66 @@
+# LabPulse on a cloud server, with HTTPS.
+#   docker compose -f docker-compose.prod.yml up -d --build
+# Needs a .env file next to this one (copy .env.production.example). See DEPLOY.md.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: labpulse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: labpulse
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labpulse"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgres://labpulse:${POSTGRES_PASSWORD}@postgres:5432/labpulse
+      REDIS_URL: redis://redis:6379
+      PUBLIC_URL: https://${DOMAIN:?Set DOMAIN in .env}
+      COOKIE_SECURE: "true"
+      INSTRUCTOR_SIGNUP_CODE: ${INSTRUCTOR_SIGNUP_CODE:?Set INSTRUCTOR_SIGNUP_CODE in .env}
+      LOG_LEVEL: ${LOG_LEVEL:-warn}
+    volumes:
+      - ./exercises:/app/exercises:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Caddy gets and renews the HTTPS certificate automatically and forwards to the app.
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

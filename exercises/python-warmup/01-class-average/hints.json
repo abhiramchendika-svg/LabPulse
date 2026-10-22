@@ -1,0 +1,5 @@
+{
+  "fail:test_simple_average": "Your function has to return the value, not print it. Add up the marks with sum(marks), divide by len(marks), and return the result.",
+  "fail:test_rounds_to_two_places": "Round the result before returning it: return round(total / count, 2).",
+  "ZeroDivisionError": "An empty list has length 0, so dividing by len(marks) crashes. Check for the empty list first: if not marks: return 0.0"
+}

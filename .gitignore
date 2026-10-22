@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+*.log
+.env.production
+test-results/
+playwright-report/
+apps/web/public/pyodide/
+dump.rdb
+_archive/

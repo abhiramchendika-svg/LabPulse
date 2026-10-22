@@ -1,0 +1,5 @@
+{
+  "fail:test_fifteen_is_fizzbuzz": "Check the FizzBuzz case first: if i % 15 == 0 has to come before the checks for 3 and 5.",
+  "fail:test_numbers_are_strings": "Plain numbers must be text too: append str(i), not i.",
+  "IndexError": "Your list is shorter than expected. Loop with range(1, n + 1) so n itself is included."
+}

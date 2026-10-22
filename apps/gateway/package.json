@@ -1,0 +1,31 @@
+{
+  "name": "@labpulse/gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fastify/cookie": "11.1.3",
+    "@fastify/static": "10.1.6",
+    "@fastify/websocket": "11.3.4",
+    "@labpulse/shared": "0.1.0",
+    "fastify": "5.12.7",
+    "ioredis": "5.8.2",
+    "pg": "8.16.3",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.12",
+    "@types/pg": "8.15.5",
+    "@types/ws": "8.18.1",
+    "tsx": "4.20.6",
+    "ws": "8.22.0"
+  }
+}

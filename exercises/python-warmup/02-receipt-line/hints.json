@@ -1,0 +1,4 @@
+{
+  "TypeError": "Python won't add a number to text with +. Turn the numbers into text with str(quantity) and str(total), or build the whole line with an f-string: f\"{quantity} x {item} = Rs {total}\"",
+  "fail:test_several_items": "Compare your text with the expected line character by character: spaces around x and =, and the word Rs."
+}

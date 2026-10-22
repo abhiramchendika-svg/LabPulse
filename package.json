@@ -1,0 +1,28 @@
+{
+  "name": "labpulse",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Live coding-lab intelligence: see who is stuck, on what, and help the whole group at once.",
+  "workspaces": [
+    "packages/shared",
+    "apps/gateway",
+    "apps/web"
+  ],
+  "scripts": {
+    "build": "npm run build -w @labpulse/shared && npm run build -w @labpulse/web && npm run build -w @labpulse/gateway",
+    "dev": "node scripts/dev.mjs",
+    "start": "npm run start -w @labpulse/gateway",
+    "test": "npm run test -w @labpulse/shared && npm run test -w @labpulse/gateway",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "e2e": "playwright test -c e2e/playwright.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "vite": "7.3.7"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
